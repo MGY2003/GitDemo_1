@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.DMSys.mapper.DormitoryManagementMapper">
+
+    <insert id="addDormitoryManagement" parameterType="com.DMSys.model.DormitoryManagement">
+        INSERT INTO dormitory_management (dormitory_id, inspection_date, hygiene_condition,dormitory_leader)
+        VALUES (#{dormitoryId}, #{inspection_date}, #{hygiene_condition},#{dormitory_leader})
+    </insert>
+
+    <delete id="deleteDormitoryManagement">
+        DELETE FROM dormitory_management WHERE id = #{id} or dormitory_id = #dormitory_id}
+    </delete>
+
+    <update id="updateDormitoryManagement" parameterType="map">
+        UPDATE dormitory_management
+        SET dormitory_id = #{dormitoryId}, inspection_date = #{inspection_date}, hygiene_condition = #{hygiene_condition},domitory_id = #{domitory_id}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getAllDormitoryManagements" resultType="com.DMSys.model.DormitoryManagement">
+        SELECT * FROM dormitory_management
+    </select>
+
+    <select id="getDormitoryManagementById" parameterType="com.DMSys.model.DormitoryManagement" resultType="com.DMSys.model.DormitoryManagement">
+        SELECT * FROM dormitory_management WHERE 1=1
+        <if test="id !=null">
+            and id =#{id}
+        </if>
+        <if test="dormitory_id != null and dormitory_id != ''">
+            and dormitory_id LIKE #{dormitoryId}
+        </if>
+    </select>
+</mapper>

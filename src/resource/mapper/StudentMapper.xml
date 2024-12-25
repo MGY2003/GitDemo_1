@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.DMSys.mapper.StudentMapper">
+
+    <insert id="addStudent" parameterType="com.DMSys.model.Student">
+        INSERT INTO student (name, age, gender, dormitory_id)
+        VALUES (#{name}, #{age}, #{gender}, #{dormitoryId})
+    </insert>
+
+    <delete id="delStudent">
+        DELETE FROM student WHERE id = #{studentId} or name = #{studentName}
+    </delete>
+
+    <update id="updateStudent" parameterType="map">
+        UPDATE student
+        SET name = #{ame}, age = #{age}, gender = #{gender}, dormitory_id = #{dormitoryId}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getAllStudents" resultType="com.DMSys.model.Student">
+        SELECT * FROM student
+    </select>
+
+    <select id="getStudentById" parameterType="com.DMSys.model.Student" resultType="com.DMSys.model.Student">
+        SELECT * FROM student WHERE 1=1
+        <if test="id !=null">
+        and id =#{id}
+        </if>
+        <if test="name != null and name != ''">
+        and name LIKE #{studentName}
+        </if>
+    </select>
+</mapper>

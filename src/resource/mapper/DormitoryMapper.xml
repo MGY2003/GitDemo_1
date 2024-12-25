@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.DMSys.mapper.DormitoryMapper">
+
+    <insert id="addDormitory" parameterType="com.DMSys.model.Dormitory">
+        INSERT INTO dormitory (dormitory_number, building_name)
+        VALUES (#{dormitory_number}, #{building_name})
+    </insert>
+
+    <delete id="deleteDormitory">
+        DELETE FROM dormitory WHERE id = #{dormitoryId} or dormitory_number = #{dormitoryNumber}
+    </delete>
+
+    <update id="updateDormitory" parameterType="map">
+        UPDATE dormitory
+        SET dormitory_number = #{dormitory_number}, building_name = #{building_name}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getAllDormitories" resultType="com.DMSys.model.Dormitory">
+        SELECT * FROM dormitory
+    </select>
+
+    <select id="getDormitoryById" parameterType="com.DMSys.model.Dormitory" resultType="com.DMSys.model.Dormitory">
+        SELECT * FROM dormitory WHERE 1=1
+        <if test="id !=null">
+            and id =#{id}
+        </if>
+        <if test="dormitory_number != null and dormitory_number != ''">
+            and dormitory_number LIKE #{dormitoryNumber}
+        </if>
+    </select>
+</mapper>
